@@ -20,3 +20,8 @@ fn season_spring_2020() {
     let a: Vec<sync::Anime> = sync::get_season(2020, "spring").expect("2020's spring season");
 
 }
+
+#[test]
+fn future_season() {
+    let a: Vec<sync::Anime> = sync::get_future_season();
+}

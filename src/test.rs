@@ -13,3 +13,10 @@ fn monster_from_id() {
     assert_eq!(m.title, "Monster");
 
 }
+
+
+#[test]
+fn season_spring_2020() {
+    let a: Vec<sync::Anime> = sync::get_season(2020, "spring").expect("2020's spring season");
+
+}

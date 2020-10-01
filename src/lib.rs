@@ -82,6 +82,31 @@ pub mod sync {
         }
     }
 
+
+    pub fn get_season(year: u64, season: impl Into<String>) -> Result<Vec<Anime>, ()> {
+        let req = reqwest::blocking::get(format!("https://api.jikan.moe/v3/season/{}/{}", year, season.into()).as_str());
+        match req {
+            Ok(x) => {
+                let output = &x.text().unwrap();
+                #[derive(serde::Serialize, serde::Deserialize)]
+                struct Season {
+                    anime: Vec<Anime>
+                }
+
+                match serde_json::from_str::<Season>(output){
+                    Ok(json) => {
+                        Ok(json.anime)
+                    },
+                    Err(x) => {
+                        Err(())
+                    }
+                }
+            },
+            _ => Err(())
+        }
+
+    }
+
 }
 
 

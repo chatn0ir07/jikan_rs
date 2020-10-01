@@ -37,3 +37,9 @@ fn spike_spiegel_character_by_id() {
     let c: sync::Character = sync::Character::from(1).expect("Character");
     assert_eq!(c.name, "Spike Spiegel");
 }
+
+#[test]
+fn user_endpoint() {
+    let u: sync::User = sync::User::from("nekomata1037").expect("User");
+    assert_eq!(u.username, "Nekomata1037");
+}

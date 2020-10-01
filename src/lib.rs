@@ -206,6 +206,45 @@ pub mod sync {
         }
     }
 
+    #[derive(serde::Deserialize, serde::Serialize)]
+    pub struct User {
+        pub user_id: usize,
+        pub username: String,
+        pub url: String,
+        pub image_url: String,
+        pub last_online: String,
+        pub gender: String,
+        pub birthday: String,
+        pub location: String,
+        pub joined: String,
+    }
+
+    impl User {
+        pub fn from<T: Into<String>>(name: T) -> Option<User> {
+            let url = format!("https://api.jikan.moe/v3/user/{}", name.into());
+            let req = reqwest::blocking::get(&url);
+            match req {
+                Ok(x) => {
+                    let output = &x.text().unwrap();
+                    if let Ok(json) = serde_json::from_str(output) {
+                        Some(json)
+                    }else{
+                        None
+                    }
+                },
+                _ => {
+                    None
+                }
+            }
+        }
+    }
+
+    impl std::fmt::Debug for User {
+        fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            formatter.write_str(&serde_json::to_string(self).unwrap())
+        }
+    }
+
 }
 
 

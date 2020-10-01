@@ -23,5 +23,11 @@ fn season_spring_2020() {
 
 #[test]
 fn future_season() {
-    let a: Vec<sync::Anime> = sync::get_future_season();
+    let a: Vec<sync::Anime> = sync::get_future_season().expect("Array");
+}
+
+#[test]
+fn tomokazu_seki_person_by_id() {
+    let p: sync::Person = sync::Person::from(1).expect("Person");
+    assert_eq!(p.name, "Tomokazu Seki");
 }

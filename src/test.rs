@@ -31,3 +31,9 @@ fn tomokazu_seki_person_by_id() {
     let p: sync::Person = sync::Person::from(1).expect("Person");
     assert_eq!(p.name, "Tomokazu Seki");
 }
+
+#[test]
+fn spike_spiegel_character_by_id() {
+    let c: sync::Character = sync::Character::from(1).expect("Character");
+    assert_eq!(c.name, "Spike Spiegel");
+}

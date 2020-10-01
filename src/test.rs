@@ -43,3 +43,9 @@ fn user_endpoint() {
     let u: sync::User = sync::User::from("nekomata1037").expect("User");
     assert_eq!(u.username, "Nekomata1037");
 }
+
+#[test]
+fn club_endpoint() {
+    let u: sync::Club = sync::Club::from(1).expect("User");
+    assert_eq!(u.title, "Cowboy Bebop");
+}

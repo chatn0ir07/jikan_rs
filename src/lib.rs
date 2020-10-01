@@ -245,6 +245,42 @@ pub mod sync {
         }
     }
 
+    #[derive(serde::Deserialize, serde::Serialize)]
+    pub struct Club {
+        pub title: String,
+        pub members_count: usize,
+        pub category: String,
+        pub created: String,
+        pub r#type: String
+    }
+
+    impl Club {
+        pub fn from<T: Into<i32>>(id: T) -> Option<Club> {
+            let url = format!("https://api.jikan.moe/v3/club/{}", id.into());
+            let req = reqwest::blocking::get(&url);
+            match req {
+                Ok(x) => {
+                    let output = &x.text().unwrap();
+                    if let Ok(json) = serde_json::from_str(output) {
+                        Some(json)
+                    }else{
+                        None
+                    }
+                },
+                _ => {
+                    None
+                }
+            }
+        }
+    }
+
+    impl std::fmt::Debug for Club {
+        fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            formatter.write_str(&serde_json::to_string(self).unwrap())
+        }
+    }
+
+
 }
 
 
